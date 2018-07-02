@@ -161,8 +161,7 @@ class App extends Component {
     // appoint new justice(s), if needed
     const replacements = [...this.state.replacements];
     if ((newCongress || this.state.congress) === (newPresidency || this.state.presidency)) {
-      con
-le.      this.appointJustice(justices.length, replacements, newCongress);
+      this.appointJustice(justices.length, replacements, newCongress);
     } else {
       alert("You just got Merrick Garland'd!");
     }
