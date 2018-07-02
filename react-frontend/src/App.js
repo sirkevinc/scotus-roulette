@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gavel from './Assets/gavel.png';
-import getFutureDate from './randomizer';
+import { getFutureDate } from './randomizer';
 
 import './App.css';
 
