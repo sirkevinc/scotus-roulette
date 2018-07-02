@@ -9,10 +9,14 @@ export const getRandomJudge = (judges) => {
 
 export const randomizeParty = () => {
   const randomNumber = Math.random();
-  if (randomNumber > 0.5) return "Republican";
-  return "Democrat";
+  if (randomNumber > 0.5) {
+    return "Democratic";
+  }
+  else {
+    return "Republican";
+  }
 }
 
 export const checkJudgeAge = (judge, currentYear) => {
-  return Number(judge.date_dob.slice(0, 4));
+  return currentYear - Number(judge.date_dob.slice(0, 4));
 }

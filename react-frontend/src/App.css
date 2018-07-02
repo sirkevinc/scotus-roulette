@@ -1,35 +1,37 @@
 :root {
   --cycle: 500ms;
+  --iterations: infinite;
   --timing: linear;
-}
-
-.notspinning {
-  margin: 20px;
-  padding: 40px;
-  width: 30%;
 }
 
 .spinning {
   margin: 20px;
   padding: 40px;
-  width: 30%;
+  width: 3%;
   -webkit-animation-name: spin;
   -webkit-animation-duration: var(--cycle);
-  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: var(--iterations);
   -webkit-animation-timing-function: var(--timing);
   -moz-animation-name: spin;
   -moz-animation-duration: var(--cycle);
-  -moz-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: var(--iterations);
   -moz-animation-timing-function: var(--timing);
   -ms-animation-name: spin;
   -ms-animation-duration: var(--cycle);
-  -ms-animation-iteration-count: infinite;
+  -ms-animation-iteration-count: var(--iterations);
   -ms-animation-timing-function: var(--timing);
   
   animation-name: spin;
   animation-duration: var(--cycle);
-  animation-iteration-count: infinite;
+  animation-iteration-count: var(--iterations);
   animation-timing-function: var(--timing);
+}
+
+.paused {
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -ms-animation-play-state: paused;
+  animation-play-state: paused;
 }
 
 .judge-container {
@@ -37,6 +39,22 @@
   flex-flow: row wrap;
   width: 67%;
   justify-content: center;
+}
+
+.judge {
+  position: relative;
+}
+
+.judge-pic__d {
+  border: 5px solid blue;
+}
+.judge-pic__r {
+  border: 5px solid red;
+}
+
+.RedX {
+  position: absolute;
+  left: -25px;
 }
 
 @-ms-keyframes spin {
