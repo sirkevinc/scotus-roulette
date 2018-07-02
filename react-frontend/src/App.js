@@ -9,7 +9,7 @@ import './App.css';
 class App extends Component {
   state = {
     paused: true,
-    date: getFutureDate(2018, 2030),
+    date: getFutureDate(2019, 2030),
     congress: randomizeParty(),
     presidency: randomizeParty(),
     judges: Judges.CurrentJustices,
@@ -40,12 +40,12 @@ class App extends Component {
     let demJudges = [...this.state.demJudges];
     let replacementNum = this.state.removed.length;
     // get parties
-    if (date > 2020) {
-      this.setState({
-      presidency: randomizeParty(),
-      congress: randomizeParty(),
-      })
-    }
+    // if (date > 2020) {
+    //   this.setState({
+    //   presidency: randomizeParty(),
+    //   congress: randomizeParty(),
+    //   })
+    // }
     if (this.state.presidency !== this.state.congress) {
       alert("You just got Merrick Garland'd!")
     } else {
@@ -74,8 +74,22 @@ class App extends Component {
     // }
   }
 
-  toggleSpin(date) {
-    this.setState({ date: getFutureDate(2018, 2030) });
+  getCourtBalance() {
+    let redCount= 0;
+    let blueCount=0;
+    let judges = [...this.state.judges, ...this.state.replacements];
+    judges.forEach((judge) => {
+      if (judge.party === "r") {
+        redCount++;
+      } else {
+        blueCount++;
+      }
+    });
+    return redCount > blueCount ? "r" : "d";
+  }
+
+  toggleSpin(event, date) {
+    event.preventDefault();
     this.setState({ judges: this.getJudges(date) });
     this.setState({ paused: !this.state.paused });
     this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
@@ -110,8 +124,12 @@ class App extends Component {
         <h3>Year: {this.state.date}</h3>
         <h3>Presidency: {this.state.presidency}</h3>
         <h3>Congress: {this.state.congress}</h3>
+        {this.getCourtBalance() === "r" ?
+          <p>You get to keep your guns!!!</p> :
+          <p>Gay marriage for everyone!!!</p>  
+      }
         <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} />
-        <button onClick={() => this.toggleSpin(date)}>{buttonTitle}!</button>
+        <button onClick={(event) => this.toggleSpin(event, date)}>{buttonTitle}!</button>
           <div className="judge-container">
             {this.state.replacements.map(judge => {
               return (
