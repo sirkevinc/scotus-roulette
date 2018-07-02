@@ -113,7 +113,7 @@ const Judges = {
     {
       name: "Jacqueline Nguyen",
       id: 2403,
-      picture: "https://www.japantimes.co.jp/wp-content/uploads/2016/03/f-nguyen-a-20160307.jpg",
+      picture: "http://2.bp.blogspot.com/-nFG5YdeAG_M/TnvVuSm3EVI/AAAAAAAAFXM/GdUjbFCQ5lo/s800/jacquelinenguyen.jpg",
       party: 'd'
     },
   ],
