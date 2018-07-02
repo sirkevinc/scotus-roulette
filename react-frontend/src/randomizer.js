@@ -20,3 +20,13 @@ export const randomizeParty = () => {
 export const checkJudgeAge = (judge, currentYear) => {
   return currentYear - Number(judge.date_dob.slice(0, 4));
 }
+
+export const getRandomMessage = (messages, party) => {
+  const i = Math.floor(Math.random() * 2);
+  return messages[party[i]];
+}
+
+export const getRandomIndex = (max) => {
+  const randomNumber = Math.floor(Math.random() * (max - 1));
+  return randomNumber;
+}

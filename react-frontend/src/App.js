@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import gavel from './Assets/gavel.png';
-import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge } from './randomizer';
+import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex } from './randomizer';
 import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
+import Messages from './data/messages';
 
 import './App.css';
 
 class App extends Component {
   state = {
     paused: true,
-    date: getFutureDate(2019, 2030),
+    date: 2018,
     congress: randomizeParty(),
     presidency: randomizeParty(),
     judges: Judges.CurrentJustices,
@@ -21,9 +22,62 @@ class App extends Component {
     buttonIndex: 0
   }
     
-  getJudges(date) {
+  // getJudges(date) {
+  //   const removed = [...this.state.removed];
+  //   const staying = this.state.judges.filter(judge => {
+  //     if (checkJudgeAge(judge, date) < 80) {
+  //       return judge;
+  //     }
+  //     removed.push(judge);
+  //   })
+
+  //   this.setState({removed: removed});
+  //   return staying;
+  // }
+
+  // getReplacements(date) {
+  //   const replacements = [];
+  //   let repJudges = [...this.state.repJudges];
+  //   let demJudges = [...this.state.demJudges];
+  //   let replacementNum = this.state.removed.length;
+  //   // get parties
+  //   // if (date > 2020) {
+  //   //   this.setState({
+  //   //   presidency: randomizeParty(),
+  //   //   congress: randomizeParty(),
+  //   //   })
+  //   // }
+  //   if (this.state.presidency !== this.state.congress) {
+  //     alert("You just got Merrick Garland'd!")
+  //   } else {
+  //     while (replacementNum > 0) {
+  //       if (this.state.presidency === "Republican") {
+  //         const replacement = getRandomJudge(repJudges);
+  //         const newRepJudges = repJudges.filter(judge => {
+  //           return judge.name !== replacement.name
+  //         });
+  //         replacements.push(replacement);
+  //         repJudges = [...newRepJudges];
+  //       }
+  //       else {
+  //         const replacement = getRandomJudge(demJudges);
+  //         const newDemJudges = demJudges.filter(judge => {
+  //           return judge.name !== replacement.name
+  //         });
+  //         replacements.push(replacement);
+  //         demJudges = [...newDemJudges];
+  //       }
+  //       replacementNum -= 1;
+  //     }
+  //   }
+  //   this.setState({ replacements: replacements });
+  //   console.log(this.state);
+  //   // }
+  // }
+
+  removeJustices(judges, date) {
     const removed = [...this.state.removed];
-    const staying = this.state.judges.filter(judge => {
+    const staying = judges.filter(judge => {
       if (checkJudgeAge(judge, date) < 80) {
         return judge;
       }
@@ -34,45 +88,20 @@ class App extends Component {
     return staying;
   }
 
-  getReplacements(date) {
-    const replacements = [];
-    let repJudges = [...this.state.repJudges];
-    let demJudges = [...this.state.demJudges];
-    let replacementNum = this.state.removed.length;
-    // get parties
-    // if (date > 2020) {
-    //   this.setState({
-    //   presidency: randomizeParty(),
-    //   congress: randomizeParty(),
-    //   })
-    // }
-    if (this.state.presidency !== this.state.congress) {
-      alert("You just got Merrick Garland'd!")
-    } else {
-      while (replacementNum > 0) {
-        if (this.state.presidency === "Republican") {
-          const replacement = getRandomJudge(repJudges);
-          const newRepJudges = repJudges.filter(judge => {
-            return judge.name !== replacement.name
-          });
-          replacements.push(replacement);
-          repJudges = [...newRepJudges];
+  appointJustice(originalsLeft, replacementsArr, side) {
+      const repJudges = [...this.state.repJudges];
+      const demJudges = [...this.state.demJudges];
+
+      while (originalsLeft + replacementsArr.length < 9) {
+        if (side === 'Republican') {
+          replacementsArr.push(repJudges.splice(getRandomIndex(repJudges.length), 1));
+        } else {
+          replacementsArr.push(demJudges.splice(getRandomIndex(demJudges.length), 1));
         }
-        else {
-          const replacement = getRandomJudge(demJudges);
-          const newDemJudges = demJudges.filter(judge => {
-            return judge.name !== replacement.name
-          });
-          replacements.push(replacement);
-          demJudges = [...newDemJudges];
-        }
-        replacementNum -= 1;
       }
+
+      this.setState({ repJudges: repJudges, demJudges: demJudges})
     }
-    this.setState({ replacements: replacements });
-    console.log(this.state);
-    // }
-  }
 
   getCourtBalance() {
     let redCount= 0;
@@ -85,7 +114,22 @@ class App extends Component {
         blueCount++;
       }
     });
-    return redCount > blueCount ? "r" : "d";
+  if (this.state.buttonIndex === 0) {
+    return "";      
+    } else {
+    return redCount > blueCount ? "You get to keep your guns!!!" : "Gay marriage for everyone!!!";
+    }
+  }
+  
+  reset() {
+    this.setState({
+      date: getFutureDate(2019, 2030), 
+      judges: Judges.CurrentJustices,
+      congress: randomizeParty(),
+      presidency: randomizeParty(),
+      removed: [],
+      replacements: []
+    });
   }
 
   toggleSpin(event, date) {
@@ -94,18 +138,38 @@ class App extends Component {
     this.setState({ paused: !this.state.paused });
     this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
     {this.state.buttonIndex === 1 ? this.getReplacements(this.state.date) : null }
+    {this.state.buttonIndex === 2 ? this.reset() : null }
   }
 
-  /* 
-  takeStep() {
+  takeStep(currentJustices, date) {
     // check if any justices retired
+    const justices = this.removeJustices([...currentJustices], date);
 
     // check if congress has shifted (every 2 years)
+    const difference = date - 2018;
+    let newCongress = false;
+    if (difference > 0 && difference % 2 === 0) {
+      newCongress = randomizeParty();
+    }
 
     // check if presidency has shifted (every 4 years)
+    let newPresidency = false;
+    if (difference > 0 && difference % 4 === 0) {
+      newPresidency = randomizeParty();
+    }
+
+    // appoint new justice(s), if needed
+    const replacements = [...this.state.replacements];
+    if ((newCongress || this.state.congress) === (newPresidency || this.state.presidency)) {
+      con
+le.      this.appointJustice(justices.length, replacements, newCongress);
+    } else {
+      alert("You just got Merrick Garland'd!");
+    }
+
+    this.setState({ judges: justices, replacements: replacements, congress: newCongress || this.state.congress, presidency: newPresidency || this.state.presidency, date: date })
+
   }
-  
-  */
 
   returnClassNames(paused) {
     if (paused) {
@@ -118,18 +182,16 @@ class App extends Component {
     // console.log(Judges);
     const { date, paused } = this.state;
     const buttonTitle = this.state.buttonTitles[this.state.buttonIndex];
+    const currentJustices = [...this.state.judges];
     return (
       <div>
         <h1>Supreme Court Roulette!</h1>
         <h3>Year: {this.state.date}</h3>
         <h3>Presidency: {this.state.presidency}</h3>
         <h3>Congress: {this.state.congress}</h3>
-        {this.getCourtBalance() === "r" ?
-          <p>You get to keep your guns!!!</p> :
-          <p>Gay marriage for everyone!!!</p>  
-      }
+        <p>{this.getCourtBalance()}</p>
         <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} />
-        <button onClick={(event) => this.toggleSpin(event, date)}>{buttonTitle}!</button>
+        <button onClick={(event) => this.takeStep(currentJustices, date + 1)}>{buttonTitle}!</button>
           <div className="judge-container">
             {this.state.replacements.map(judge => {
               return (
