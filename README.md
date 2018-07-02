@@ -1,2 +1,2 @@
 # scotus-roulette
-Future supreme court predictor
+Future Supreme Court predictor
