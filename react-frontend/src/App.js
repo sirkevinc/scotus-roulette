@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RedX from './Assets/redx.png';
 import SadTrombone from './Assets/Sad-trombone.mp3';
+import dundun from './Assets/dun_dun_1.mp3'
 import gavel from './Assets/gavel.png';
 import New from './Assets/New.png'
 import { getFutureDate, randomizeParty, checkJudgeAge, getRandomIndex, getRandomMessage } from './randomizer';
@@ -24,6 +25,7 @@ class App extends Component {
     buttonTitles: ['Remove', 'Replace', 'THIS WILL NOT Reset'],
     buttonIndex: 0,
     trombone: new Audio(SadTrombone),
+    dunDun: new Audio(dundun),
     modalToggle: false,
   }
 
@@ -95,6 +97,7 @@ class App extends Component {
     // event.preventDefault();
     // this.setState({ judges: this.getJudges(date) });
     this.setState({ paused: !this.state.paused });
+    this.state.dunDun.play();
     // this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
     // {this.state.buttonIndex === 1 ? this.getReplacements(this.state.date) : null }
     // {this.state.buttonIndex === 2 ? this.reset() : null }
