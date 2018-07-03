@@ -82,14 +82,16 @@ class App extends Component {
     }
   }
   
-  reset() {
+  reset = () => {
     this.setState({
-      date: getFutureDate(2018, 2030), 
+      date: 2018, 
       judges: Judges.CurrentJustices,
-      congress: randomizeParty(),
-      presidency: randomizeParty(),
-      removed: [],
-      replacements: []
+      congress: 'Republican',
+      presidency: 'Republican',
+      removed: [...Judges.Removed],
+      replacements: [],
+      repJudges: Judges.RepJudges,
+      demJudges: Judges.DemJudges,
     });
   }
 
@@ -163,7 +165,9 @@ class App extends Component {
             <button onClick={(event) => this.takeStep(currentJustices, date + 1)} className="button">
               {paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
               {!paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
-            </button></div>
+            </button>
+            <button className="reset-btn" onClick={this.reset}>Reset</button>
+            </div>
           </div>
           <div className="judge-container">
             {this.state.replacements.map(judge => {

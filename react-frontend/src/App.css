@@ -124,6 +124,10 @@
   width: 15%;
 }
 
+.reset-btn {
+  margin-left: 35%;
+}
+
 @media (max-width: 400px) {
   .cta {
     position: absolute;
