@@ -27,9 +27,7 @@ class InfoModal extends React.Component {
     console.log(Judges[this.props.category])
     return (
       <div>
-        <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
-        Learn more
-        </Button>
+        <button onClick={this.handleShow}></button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>

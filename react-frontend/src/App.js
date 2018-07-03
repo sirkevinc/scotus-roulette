@@ -222,6 +222,7 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
+                    <InfoModal judge={judge.name} />
                     <p align="center"><em>{judge.name}</em></p>
                 </div>
             )
