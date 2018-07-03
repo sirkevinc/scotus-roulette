@@ -1,12 +1,17 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import Facts from './data/facts';
-import Judges from './data/judgeData';
+import axios from 'axios';
+// import Facts from './data/facts';
+// import Judges from './data/judgeData';
 
 class InfoModal extends React.Component {
   state = {
     show: false,
+    info: {},
+    infoLoaded: false
   }
+
+
   constructor(props, context) {
     super(props, context);
 
@@ -15,15 +20,25 @@ class InfoModal extends React.Component {
   }
 
   handleClose() {
-    this.setState({ show: false });
+    this.setState({ show: false, info: {}, infoLoaded: false });
   }
 
   handleShow() {
     this.setState({ show: true });
+    axios.get(`https://www.courtlistener.com/api/rest/v3/people/${this.props.id}/`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({ info: res.data, infoLoaded: true })
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   
   render() {
+    const info = this.state.info;
+    const infoLoaded = this.state.infoLoaded
     const style = {
       "border": "none",
       "background": "none",
@@ -41,7 +56,10 @@ class InfoModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <p>
-              YOYOYOYO
+              {infoLoaded && `Born in: ${info.dob_city}, ${info.dob_state}`}
+            </p>
+            <p>
+              {infoLoaded && `Education: ${info.educations.map(elem => elem.school.name.concat(' (', elem.degree_detail,')')).join(', ')}`}
             </p>
             {this.props.message ? 
             <div>
