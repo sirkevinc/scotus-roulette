@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gavel from './Assets/gavel.png';
-import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex } from './randomizer';
+import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex, getRandomMessage } from './randomizer';
 import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
 import Messages from './data/messages';
@@ -78,7 +78,7 @@ class App extends Component {
   removeJustices(judges, date) {
     const removed = [...this.state.removed];
     const staying = judges.filter(judge => {
-      if (checkJudgeAge(judge, date) < 80) {
+      if (checkJudgeAge(judge, date) < 86) {
         return judge;
       }
       removed.push(judge);
@@ -114,16 +114,16 @@ class App extends Component {
         blueCount++;
       }
     });
-  if (this.state.buttonIndex === 0) {
+  if (this.state.date < 2019) {
     return "";      
     } else {
-    return redCount > blueCount ?  : "Gay marriage for everyone!!!";
+    return redCount > blueCount ?  getRandomMessage(Messages, "r"): getRandomMessage(Messages, "d");
     }
   }
   
   reset() {
     this.setState({
-      date: getFutureDate(2019, 2030), 
+      date: getFutureDate(2018, 2030), 
       judges: Judges.CurrentJustices,
       congress: randomizeParty(),
       presidency: randomizeParty(),
@@ -165,8 +165,6 @@ class App extends Component {
     } else {
       alert("You just got Merrick Garland'd!");
     }
-    console.log('171!!!!', replacements);
-
     this.setState({ judges: justices, replacements: replacements, congress: newCongress || this.state.congress, presidency: newPresidency || this.state.presidency, date: date })
 
   }
