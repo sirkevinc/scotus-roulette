@@ -61,6 +61,10 @@ class InfoModal extends React.Component {
             <p>
               {infoLoaded && info.educations.length && `Education: ${info.educations.map(elem => elem.school.name.concat(' (', elem.degree_detail,')')).join(', ')}`}
             </p>
+            {this.props.message ? 
+            <div>
+              {this.props.message}
+            </div> : null}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>

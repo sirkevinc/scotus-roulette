@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RedX from './Assets/redx.png';
 import SadTrombone from './Assets/Sad-trombone.mp3';
+import dundun from './Assets/dun_dun_1.mp3'
 import gavel from './Assets/gavel.png';
 import New from './Assets/New.png'
 import { getFutureDate, randomizeParty, checkJudgeAge, getRandomIndex, getRandomMessage } from './randomizer';
@@ -24,16 +25,13 @@ class App extends Component {
     buttonTitles: ['Remove', 'Replace', 'THIS WILL NOT Reset'],
     buttonIndex: 0,
     trombone: new Audio(SadTrombone),
+    dunDun: new Audio(dundun),
     modalToggle: false,
   }
 
   toggleModal = (event) => {
     event.stopPropagation();
     this.setState({ modalToggle: !this.state.modalToggle });
-  }
-
-  test(key) {
-    console.log(key)
   }
 
   removeJustices(judges, date) {
@@ -84,14 +82,16 @@ class App extends Component {
     }
   }
   
-  reset() {
+  reset = () => {
     this.setState({
-      date: getFutureDate(2018, 2030), 
+      date: 2018, 
       judges: Judges.CurrentJustices,
-      congress: randomizeParty(),
-      presidency: randomizeParty(),
-      removed: [],
-      replacements: []
+      congress: 'Republican',
+      presidency: 'Republican',
+      removed: [...Judges.Removed],
+      replacements: [],
+      repJudges: Judges.RepJudges,
+      demJudges: Judges.DemJudges,
     });
   }
 
@@ -99,6 +99,7 @@ class App extends Component {
     // event.preventDefault();
     // this.setState({ judges: this.getJudges(date) });
     this.setState({ paused: !this.state.paused });
+    this.state.dunDun.play();
     // this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
     // {this.state.buttonIndex === 1 ? this.getReplacements(this.state.date) : null }
     // {this.state.buttonIndex === 2 ? this.reset() : null }
@@ -164,7 +165,9 @@ class App extends Component {
             <button onClick={(event) => this.takeStep(currentJustices, date + 1)} className="button">
               {paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
               {!paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
-            </button></div>
+            </button>
+            <button className="reset-btn" onClick={this.reset}>Reset</button>
+            </div>
           </div>
           <div className="judge-container">
             {this.state.replacements.map(judge => {
