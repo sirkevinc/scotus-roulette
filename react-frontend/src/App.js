@@ -32,10 +32,6 @@ class App extends Component {
     this.setState({ modalToggle: !this.state.modalToggle });
   }
 
-  test(key) {
-    console.log(key)
-  }
-
   removeJustices(judges, date) {
     const removed = [...this.state.removed];
     const staying = judges.filter((judge) => {
@@ -181,7 +177,7 @@ class App extends Component {
               return (
               <div className="judge" key={judge.id+'a'}>
                 {/* {this.state.modalToggle ? <InfoModal judge={judge.name}/> : null} */}
-                  <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} onClick={this.test(judge)} />
+                  <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                     {/* <p align="center"><em>{judge.name}</em></p> */}
                     <InfoModal judge={judge.name} />
                 </div>

@@ -43,6 +43,10 @@ class InfoModal extends React.Component {
             <p>
               YOYOYOYO
             </p>
+            {this.props.message ? 
+            <div>
+              {this.props.message}
+            </div> : null}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>Close</Button>
