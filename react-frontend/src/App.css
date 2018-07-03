@@ -2,7 +2,7 @@
   --cycle: 1000ms;
   --iterations: 1;
   --timing: linear;
-  --start: rotate(-70deg);
+  --start: rotate(-72deg);
   --middle: rotate(-50deg);
   --stop: rotate(40deg);
 }
@@ -118,24 +118,25 @@
   background: #e0e0e0;
   border-radius: 15px;
   padding: 15px;
-  position: absolute;
+  position: fixed;
   top: 15px;
   right: 15px;
-  width: 15%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .reset-btn {
-  margin-left: 35%;
+  margin-left: 6%;
 }
 
 @media (max-width: 400px) {
   .cta {
-    position: absolute;
     width: 25%;
     height: 350px;
   }
   .button{
-    position: absolute;
     left: -40%;
   }
   .slug {
@@ -148,12 +149,9 @@
 
 @media (max-width: 800px) {
   .cta {
-    position: absolute;
     width: 25%;
-    height: 350px;
   }
   .button{
-    position: absolute;
     left: 0px;
   }
   .slug {
@@ -170,6 +168,7 @@
 
 .button {
   width: 200px;
+  max-width: 100%;
   margin-top: 30px;
   margin-bottom: 60px;
   background: none;
