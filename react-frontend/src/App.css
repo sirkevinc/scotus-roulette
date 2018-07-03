@@ -7,6 +7,11 @@
   --stop: rotate(40deg);
 }
 
+.title {
+  font-family: 'Lucida Bright', Georgia, 'Times New Roman', Times, serif;
+  padding: 15px;
+}
+
 .spinning {
   transform-origin: (30,40);
   transform: rotate(-70deg);
@@ -79,13 +84,22 @@
 
 .judge {
   position: relative;
+  margin: 0px 6px;
+  border-radius: 4px;
+  filter:drop-shadow(3px 3px 6px black);
 }
 
 .judge-pic__d {
-  border: 5px solid blue;
+  margin: 0px 6px;
+  border: 5px solid RoyalBlue;
+  border-radius: 4px;
+  filter:drop-shadow(3px 3px 6px black);
 }
 .judge-pic__r {
-  border: 5px solid red;
+  margin: 0px 6px;
+  border: 5px solid Crimson;
+  border-radius: 4px;
+  filter:drop-shadow(3px 3px 6px black);
 }
 
 .RedX {
@@ -93,9 +107,26 @@
   left: -25px;
 }
 
-.newTag {
+.slug {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  width: 60%;
+}
+
+.cta {
+  background: #e0e0e0;
+  border-radius: 15px;
+  padding: 15px;
   position: absolute;
-  left: -25px;
+  top: 15px;
+  right: 15px;
+  width: 210px;
+}
+
+.New {
+  position: absolute;
+  right:0px;
 }
 
 .button {

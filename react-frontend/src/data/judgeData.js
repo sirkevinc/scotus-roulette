@@ -10,14 +10,6 @@ const Judges = {
       picture: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Official_roberts_CJ.jpg/220px-Official_roberts_CJ.jpg"      
     },
     {
-      name: "Anthony Kennedy",
-      position: "Associate Justice",
-      date_dob: "1936-01-01",
-      id: 1747,
-      party: "r",
-      picture: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Anthony_Kennedy_official_SCOTUS_portrait.jpg/220px-Anthony_Kennedy_official_SCOTUS_portrait.jpg"      
-    },
-    {
       name: "Clarence Thomas",
       position: "Associate Justice",
       date_dob: "1948-06-23",
@@ -167,6 +159,16 @@ const Judges = {
       picture: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Judge_Steven_Colloton_2016.jpg",
       party: 'r'
     }
+  ],
+  Removed: [
+    {
+      name: "Anthony Kennedy",
+      position: "Associate Justice",
+      date_dob: "1936-01-01",
+      id: 1747,
+      party: "r",
+      picture: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Anthony_Kennedy_official_SCOTUS_portrait.jpg/220px-Anthony_Kennedy_official_SCOTUS_portrait.jpg"      
+    },
   ]
 };
 
