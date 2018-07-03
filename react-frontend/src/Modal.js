@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import Facts from './data/facts';
-import Judges from './data/judgeData';
+// import Facts from './data/facts';
+// import Judges from './data/judgeData';
 
 class InfoModal extends React.Component {
   state = {
@@ -35,14 +35,21 @@ class InfoModal extends React.Component {
       })
   }
 
+  
   render() {
-    console.log(Judges[this.props.category])
     const info = this.state.info;
     const infoLoaded = this.state.infoLoaded
+    const style = {
+      "border": "none",
+      "background": "none",
+      "outline": "none",
+      "width": "100%",
+      "textAlign": "center",
+      "margin": "5% 0"
+    }
     return (
       <div>
-        <button onClick={this.handleShow}></button>
-
+        <button onClick={this.handleShow} style={style}>{this.props.judge}</button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{this.props.judge}</Modal.Title>

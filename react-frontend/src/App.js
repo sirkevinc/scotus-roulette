@@ -24,60 +24,17 @@ class App extends Component {
     buttonTitles: ['Remove', 'Replace', 'THIS WILL NOT Reset'],
     buttonIndex: 0,
     trombone: new Audio(SadTrombone),
+    modalToggle: false,
   }
 
-  // getJudges(date) {
-  //   const removed = [...this.state.removed];
-  //   const staying = this.state.judges.filter(judge => {
-  //     if (checkJudgeAge(judge, date) < 80) {
-  //       return judge;
-  //     }
-  //     removed.push(judge);
-  //   })
+  toggleModal = (event) => {
+    event.stopPropagation();
+    this.setState({ modalToggle: !this.state.modalToggle });
+  }
 
-  //   this.setState({removed: removed});
-  //   return staying;
-  // }
-
-  // getReplacements(date) {
-  //   const replacements = [];
-  //   let repJudges = [...this.state.repJudges];
-  //   let demJudges = [...this.state.demJudges];
-  //   let replacementNum = this.state.removed.length;
-  //   // get parties
-  //   // if (date > 2020) {
-  //   //   this.setState({
-  //   //   presidency: randomizeParty(),
-  //   //   congress: randomizeParty(),
-  //   //   })
-  //   // }
-  //   if (this.state.presidency !== this.state.congress) {
-  //     alert("You just got Merrick Garland'd!")
-  //   } else {
-  //     while (replacementNum > 0) {
-  //       if (this.state.presidency === "Republican") {
-  //         const replacement = getRandomJudge(repJudges);
-  //         const newRepJudges = repJudges.filter(judge => {
-  //           return judge.name !== replacement.name
-  //         });
-  //         replacements.push(replacement);
-  //         repJudges = [...newRepJudges];
-  //       }
-  //       else {
-  //         const replacement = getRandomJudge(demJudges);
-  //         const newDemJudges = demJudges.filter(judge => {
-  //           return judge.name !== replacement.name
-  //         });
-  //         replacements.push(replacement);
-  //         demJudges = [...newDemJudges];
-  //       }
-  //       replacementNum -= 1;
-  //     }
-  //   }
-  //   this.setState({ replacements: replacements });
-  //   console.log(this.state);
-  //   // }
-  // }
+  test(key) {
+    console.log(key)
+  }
 
   removeJustices(judges, date) {
     const removed = [...this.state.removed];
@@ -86,6 +43,7 @@ class App extends Component {
         return judge;
       }
       removed.push(judge);
+      return false
     })
 
     this.setState({removed: removed});
@@ -214,7 +172,9 @@ class App extends Component {
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
                     <img src={New} alt="New" className="New" height="100"/>
-                    <p align="center"><em>{judge.name}</em></p>
+                    {/* <p align="center"><em>{judge.name}</em></p> */}
+                    <InfoModal judge={judge.name} id={judge.id} />
+
                 </div>
               )
             })}
@@ -223,7 +183,7 @@ class App extends Component {
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                     <InfoModal judge={judge.name} id={judge.id} />
-                    <p align="center"><em>{judge.name}</em></p>
+                    {/* <p align="center"><em>{judge.name}</em></p> */}
                 </div>
             )
             })}
@@ -232,7 +192,8 @@ class App extends Component {
                 <div className="judge" key={judge.id+'d'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                   <img src={RedX} alt="redx" height="200" className="RedX" />
-                    <p align="center"><em>{judge.name}</em></p>
+                    {/* <p align="center"><em>{judge.name}</em></p> */}
+                    <InfoModal judge={judge.name} id={judge.id} />
                 </div>
             )
             })}
@@ -243,3 +204,57 @@ class App extends Component {
 }
 
 export default App;
+
+
+  // getJudges(date) {
+  //   const removed = [...this.state.removed];
+  //   const staying = this.state.judges.filter(judge => {
+  //     if (checkJudgeAge(judge, date) < 80) {
+  //       return judge;
+  //     }
+  //     removed.push(judge);
+  //   })
+
+  //   this.setState({removed: removed});
+  //   return staying;
+  // }
+
+  // getReplacements(date) {
+  //   const replacements = [];
+  //   let repJudges = [...this.state.repJudges];
+  //   let demJudges = [...this.state.demJudges];
+  //   let replacementNum = this.state.removed.length;
+  //   // get parties
+  //   // if (date > 2020) {
+  //   //   this.setState({
+  //   //   presidency: randomizeParty(),
+  //   //   congress: randomizeParty(),
+  //   //   })
+  //   // }
+  //   if (this.state.presidency !== this.state.congress) {
+  //     alert("You just got Merrick Garland'd!")
+  //   } else {
+  //     while (replacementNum > 0) {
+  //       if (this.state.presidency === "Republican") {
+  //         const replacement = getRandomJudge(repJudges);
+  //         const newRepJudges = repJudges.filter(judge => {
+  //           return judge.name !== replacement.name
+  //         });
+  //         replacements.push(replacement);
+  //         repJudges = [...newRepJudges];
+  //       }
+  //       else {
+  //         const replacement = getRandomJudge(demJudges);
+  //         const newDemJudges = demJudges.filter(judge => {
+  //           return judge.name !== replacement.name
+  //         });
+  //         replacements.push(replacement);
+  //         demJudges = [...newDemJudges];
+  //       }
+  //       replacementNum -= 1;
+  //     }
+  //   }
+  //   this.setState({ replacements: replacements });
+  //   console.log(this.state);
+  //   // }
+  // }

@@ -121,8 +121,43 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  width: 210px;
+  width: 15%;
 }
+
+@media (max-width: 400px) {
+  .cta {
+    position: absolute;
+    width: 25%;
+    height: 350px;
+  }
+  .button{
+    position: absolute;
+    left: -40%;
+  }
+  .slug {
+    width: 50%;
+  }
+  h2 {
+    width: 50%;
+  }
+}
+
+@media (max-width: 800px) {
+  .cta {
+    position: absolute;
+    width: 25%;
+    height: 350px;
+  }
+  .button{
+    position: absolute;
+    left: 0px;
+  }
+  .slug {
+    width: 50%;
+  }
+  h2 {
+    width: 50%;
+  }}
 
 .New {
   position: absolute;
