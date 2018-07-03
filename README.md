@@ -1,4 +1,4 @@
-# Supreme Court Roulette
+# [Supreme Court Roulette](https://xenodochial-meitner-128cf5.netlify.com/)
 
 Supreme Court Roulette is a fun and exciting way to learn more about the United States Supreme Court Justices and their potential replacements in the years to come!
 
