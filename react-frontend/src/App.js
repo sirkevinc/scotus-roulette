@@ -10,9 +10,9 @@ import './App.css';
 class App extends Component {
   state = {
     paused: true,
-    date: 2018,
-    congress: randomizeParty(),
-    presidency: randomizeParty(),
+    date: 2017,
+    congress: 'Republican',
+    presidency: 'Republican',
     judges: Judges.CurrentJustices,
     repJudges: Judges.RepJudges,
     demJudges: Judges.DemJudges,
@@ -133,15 +133,16 @@ class App extends Component {
   }
 
   toggleSpin(event, date) {
-    event.preventDefault();
-    this.setState({ judges: this.getJudges(date) });
+    // event.preventDefault();
+    // this.setState({ judges: this.getJudges(date) });
     this.setState({ paused: !this.state.paused });
-    this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
-    {this.state.buttonIndex === 1 ? this.getReplacements(this.state.date) : null }
-    {this.state.buttonIndex === 2 ? this.reset() : null }
+    // this.setState({ buttonIndex: this.state.buttonIndex === 2 ? 0 : this.state.buttonIndex + 1})
+    // {this.state.buttonIndex === 1 ? this.getReplacements(this.state.date) : null }
+    // {this.state.buttonIndex === 2 ? this.reset() : null }
   }
 
   takeStep(currentJustices, date) {
+    this.toggleSpin();
     // check if any justices retired
     const justices = this.removeJustices([...currentJustices], date);
 
@@ -154,14 +155,14 @@ class App extends Component {
 
     // check if presidency has shifted (every 4 years)
     let newPresidency = false;
-    if (difference > 0 && difference % 4 === 0) {
+    if (difference > 0 && date % 4 === 0) {
       newPresidency = randomizeParty();
     }
 
     // appoint new justice(s), if needed
     const replacements = [...this.state.replacements];
     if ((newCongress || this.state.congress) === (newPresidency || this.state.presidency)) {
-      this.appointJustice(justices.length, replacements, newCongress);
+      this.appointJustice(justices.length, replacements, newCongress || this.state.congress);
     } else {
       alert("You just got Merrick Garland'd!");
     }
@@ -188,8 +189,10 @@ class App extends Component {
         <h3>Presidency: {this.state.presidency}</h3>
         <h3>Congress: {this.state.congress}</h3>
         <p>{this.getCourtBalance()}</p>
-        <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} />
-        <button onClick={(event) => this.takeStep(currentJustices, date + 1)}>{buttonTitle}!</button>
+        <button onClick={(event) => this.takeStep(currentJustices, date + 1)} className="button">
+          {paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
+          {!paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
+        </button>
           <div className="judge-container">
             {this.state.replacements.map(judge => {
               return (
@@ -213,7 +216,7 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'d'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
-                  <img src={RedX} height="200" className="RedX" />
+                  <img src={RedX} alt="redx" height="200" className="RedX" />
                     <p>{judge.name}</p>
                 </div>
             )

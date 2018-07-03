@@ -1,13 +1,16 @@
 :root {
-  --cycle: 500ms;
-  --iterations: infinite;
+  --cycle: 1000ms;
+  --iterations: 1;
   --timing: linear;
+  --start: rotate(-75deg);
+  --middle: rotate(-75deg);
+  --stop: rotate(40deg);
 }
 
 .spinning {
-  margin: 20px;
-  padding: 40px;
-  width: 3%;
+  transform-origin: (30,40);
+  transform: rotate(-70deg);
+  width: 100%;
   -webkit-animation-name: spin;
   -webkit-animation-duration: var(--cycle);
   -webkit-animation-iteration-count: var(--iterations);
@@ -27,11 +30,44 @@
   animation-timing-function: var(--timing);
 }
 
-.paused {
+.spinning:hover {
+  cursor: pointer;
+}
+
+/* .paused {
   -webkit-animation-play-state: paused;
   -moz-animation-play-state: paused;
   -ms-animation-play-state: paused;
   animation-play-state: paused;
+} */
+
+@-ms-keyframes spin {
+  0% { -ms-transform: var(--start); }
+  30% { -ms-transform: var(--stop); }
+  50% { -ms-transform: var(--middle); }
+  75% { -ms-transform: var(--stop); }
+  100% { -ms-transform: var(--start); }
+}
+@-moz-keyframes spin {
+  0% { -moz-transform: var(--start); }
+  30% { -moz-transform: var(--stop); }
+  50% { -moz-transform: var(--middle); }
+  75% { -moz-transform: var(--stop); }
+  100% { -moz-transform: var(--start); }
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: var(--start); }
+  30% { -webkit-transform: var(--stop); }
+  50% { -webkit-transform: var(--middle); }
+  75% { -webkit-transform: var(--stop); }
+  100% { -webkit-transform: var(--start); }
+}
+@keyframes spin {
+  0%  { transform:var(--start); }
+  30% { transform:var(--stop); }
+  50% { transform:var(--middle); }
+  75% { transform: var(--stop); }
+  100% { transform:var(--start); }
 }
 
 .judge-container {
@@ -57,23 +93,16 @@
   left: -25px;
 }
 
-@-ms-keyframes spin {
-  from { -ms-transform: rotate(0deg); }
-  to { -ms-transform: rotate(360deg); }
+.button {
+  width: 200px;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  background: none;
+  color: inherit;
+  border: none;
+  outline: inherit;
 }
-@-moz-keyframes spin {
-  from { -moz-transform: rotate(0deg); }
-  to { -moz-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-  from { -webkit-transform: rotate(0deg); }
-  to { -webkit-transform: rotate(360deg); }
-}
-@keyframes spin {
-  from {
-      transform:rotate(0deg);
-  }
-  to {
-      transform:rotate(360deg);
-  }
+
+.button:hover {
+  cursor: pointer;
 }
