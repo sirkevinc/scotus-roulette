@@ -94,9 +94,9 @@ class App extends Component {
 
       while (originalsLeft + replacementsArr.length < 9) {
         if (side === 'Republican') {
-          replacementsArr.push(repJudges.splice(getRandomIndex(repJudges.length), 1));
+          replacementsArr.push(repJudges.splice(getRandomIndex(repJudges.length), 1)[0]);
         } else {
-          replacementsArr.push(demJudges.splice(getRandomIndex(demJudges.length), 1));
+          replacementsArr.push(demJudges.splice(getRandomIndex(demJudges.length), 1)[0]);
         }
       }
 
@@ -117,7 +117,7 @@ class App extends Component {
   if (this.state.buttonIndex === 0) {
     return "";      
     } else {
-    return redCount > blueCount ? "You get to keep your guns!!!" : "Gay marriage for everyone!!!";
+    return redCount > blueCount ?  : "Gay marriage for everyone!!!";
     }
   }
   
@@ -165,6 +165,7 @@ class App extends Component {
     } else {
       alert("You just got Merrick Garland'd!");
     }
+    console.log('171!!!!', replacements);
 
     this.setState({ judges: justices, replacements: replacements, congress: newCongress || this.state.congress, presidency: newPresidency || this.state.presidency, date: date })
 

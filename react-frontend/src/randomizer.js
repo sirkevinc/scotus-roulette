@@ -22,7 +22,7 @@ export const checkJudgeAge = (judge, currentYear) => {
 }
 
 export const getRandomMessage = (messages, party) => {
-  const i = Math.floor(Math.random() * 2);
+  const i = Math.floor(Math.random() * 3)
   return messages[party[i]];
 }
 
