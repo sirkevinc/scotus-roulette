@@ -3,6 +3,7 @@ import gavel from './Assets/gavel.png';
 import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex, getRandomMessage } from './randomizer';
 import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
+import newTag from './Assets/New.png';
 import Messages from './data/messages';
 import InfoModal from './Modal';
 
@@ -200,8 +201,9 @@ class App extends Component {
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
                     <p>{judge.name}</p>
-                    <p></p>
                     <InfoModal judge={judge.name} />
+                  <img src={newTag} alt="new" className="newTag" />
+                    <p>{judge.name}</p>
                 </div>
               )
             })}
