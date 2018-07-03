@@ -4,6 +4,7 @@ import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandom
 import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
 import Messages from './data/messages';
+import InfoModal from './Modal';
 
 import './App.css';
 
@@ -198,9 +199,9 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
-                    <p>New!!!!</p>
                     <p>{judge.name}</p>
                     <p></p>
+                    <InfoModal judge={judge.name} />
                 </div>
               )
             })}
@@ -209,6 +210,7 @@ class App extends Component {
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                     <p>{judge.name}</p>
+                    <InfoModal category={"CurrentJustices"} judge={judge.name} />
                 </div>
             )
             })}
@@ -218,6 +220,7 @@ class App extends Component {
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                   <img src={RedX} alt="redx" height="200" className="RedX" />
                     <p>{judge.name}</p>
+                    <InfoModal judge={judge.name} />
                 </div>
             )
             })}
