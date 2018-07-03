@@ -200,9 +200,9 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
+                  <img src={newTag} alt="new" className="newTag" />
                     <p>{judge.name}</p>
                     <InfoModal judge={judge.name} />
-                  <img src={newTag} alt="new" className="newTag" />
                     <p>{judge.name}</p>
                 </div>
               )
