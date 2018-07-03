@@ -93,6 +93,11 @@
   left: -25px;
 }
 
+.newTag {
+  position: absolute;
+  left: -25px;
+}
+
 .button {
   width: 200px;
   margin-top: 30px;

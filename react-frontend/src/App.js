@@ -3,6 +3,7 @@ import gavel from './Assets/gavel.png';
 import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex, getRandomMessage } from './randomizer';
 import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
+import newTag from './Assets/New.png';
 import Messages from './data/messages';
 
 import './App.css';
@@ -198,9 +199,8 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
-                    <p>New!!!!</p>
+                  <img src={newTag} alt="new" className="newTag" />
                     <p>{judge.name}</p>
-                    <p></p>
                 </div>
               )
             })}
