@@ -4,10 +4,11 @@ import SadTrombone from './Assets/Sad-trombone.mp3';
 import dundun from './Assets/dun_dun_1.mp3'
 import gavel from './Assets/gavel.png';
 import New from './Assets/New.png'
-import { getFutureDate, randomizeParty, checkJudgeAge, getRandomIndex, getRandomMessage } from './randomizer';
+import { randomizeParty, checkJudgeAge, getRandomIndex, getRandomMessage } from './randomizer';
 import Judges from './data/judgeData';
 import Messages from './data/messages';
 import InfoModal from './Modal';
+import MerrickModal from './MerrickModal';
 
 import './App.css';
 
@@ -26,12 +27,11 @@ class App extends Component {
     buttonIndex: 0,
     trombone: new Audio(SadTrombone),
     dunDun: new Audio(dundun),
-    modalToggle: false,
+    merricked : false,
   }
 
-  toggleModal = (event) => {
-    event.stopPropagation();
-    this.setState({ modalToggle: !this.state.modalToggle });
+  toggleModal = () => {
+    this.setState({ merricked: !this.state.merricked });
   }
 
   removeJustices(judges, date) {
@@ -129,7 +129,8 @@ class App extends Component {
       this.appointJustice(justices.length, replacements, newCongress || this.state.congress);
     } else if (replacements.length + justices.length < 9) {
       this.state.trombone.play();
-      setTimeout(() => alert("You just got Merrick Garland'd! \n The government is split and deadlocked over the supreme court nominee"), 1000);
+      this.setState({ merricked: !this.state.merricked })
+      // setTimeout(() => alert("You just got Merrick Garland'd! \n The government is split and deadlocked over the supreme court nominee"), 1000);
     }
     this.setState({ judges: justices, replacements: replacements, congress: newCongress || this.state.congress, presidency: newPresidency || this.state.presidency, date: date })
 
@@ -201,6 +202,7 @@ class App extends Component {
             )
             })}
           </div>
+          {this.state.merricked ? <MerrickModal toggle={this.toggleModal} /> : null}
       </div>
     );
   }
