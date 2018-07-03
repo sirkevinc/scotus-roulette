@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import gavel from './Assets/gavel.png';
-import { getFutureDate, randomizeParty, checkJudgeAge, getRandomJudge, getRandomIndex, getRandomMessage } from './randomizer';
-import Judges from './data/judgeData';
 import RedX from './Assets/redx.png';
+import SadTrombone from './Assets/Sad-trombone.mp3';
+import gavel from './Assets/gavel.png';
+import New from './Assets/New.png'
+import { getFutureDate, randomizeParty, checkJudgeAge, getRandomIndex, getRandomMessage } from './randomizer';
+import Judges from './data/judgeData';
 import Messages from './data/messages';
 
 import './App.css';
@@ -10,18 +12,19 @@ import './App.css';
 class App extends Component {
   state = {
     paused: true,
-    date: 2017,
+    date: 2018,
     congress: 'Republican',
     presidency: 'Republican',
     judges: Judges.CurrentJustices,
     repJudges: Judges.RepJudges,
     demJudges: Judges.DemJudges,
-    removed: [],
+    removed: [...Judges.Removed],
     replacements: [],
     buttonTitles: ['Remove', 'Replace', 'THIS WILL NOT Reset'],
-    buttonIndex: 0
+    buttonIndex: 0,
+    trombone: new Audio(SadTrombone),
   }
-    
+
   // getJudges(date) {
   //   const removed = [...this.state.removed];
   //   const staying = this.state.judges.filter(judge => {
@@ -77,7 +80,7 @@ class App extends Component {
 
   removeJustices(judges, date) {
     const removed = [...this.state.removed];
-    const staying = judges.filter(judge => {
+    const staying = judges.filter((judge) => {
       if (checkJudgeAge(judge, date) < 86) {
         return judge;
       }
@@ -115,9 +118,10 @@ class App extends Component {
       }
     });
   if (this.state.date < 2019) {
-    return "";      
+    return ["", redCount, blueCount];      
     } else {
-    return redCount > blueCount ?  getRandomMessage(Messages, "r"): getRandomMessage(Messages, "d");
+    return redCount > blueCount ?  [ getRandomMessage(Messages, "r"), redCount, blueCount ] : 
+    [ getRandomMessage(Messages, "d"), redCount, blueCount ];
     }
   }
   
@@ -164,7 +168,8 @@ class App extends Component {
     if ((newCongress || this.state.congress) === (newPresidency || this.state.presidency)) {
       this.appointJustice(justices.length, replacements, newCongress || this.state.congress);
     } else {
-      alert("You just got Merrick Garland'd!");
+      this.state.trombone.play();
+      setTimeout(() => alert("You just got Merrick Garland'd! \n The government is split and deadlocked over the supreme court nominee"), 1000);
     }
     this.setState({ judges: justices, replacements: replacements, congress: newCongress || this.state.congress, presidency: newPresidency || this.state.presidency, date: date })
 
@@ -178,29 +183,37 @@ class App extends Component {
   }  
 
   render() {
-    // console.log(Judges);
-    const { date, paused } = this.state;
-    const buttonTitle = this.state.buttonTitles[this.state.buttonIndex];
+    const { date, paused, } = this.state;
     const currentJustices = [...this.state.judges];
+    const message = this.getCourtBalance()[0];
+    const redCount = this.getCourtBalance()[1];
+    const blueCount = this.getCourtBalance()[2];
+
     return (
       <div>
-        <h1>Supreme Court Roulette!</h1>
-        <h3>Year: {this.state.date}</h3>
-        <h3>Presidency: {this.state.presidency}</h3>
-        <h3>Congress: {this.state.congress}</h3>
-        <p>{this.getCourtBalance()}</p>
-        <button onClick={(event) => this.takeStep(currentJustices, date + 1)} className="button">
-          {paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
-          {!paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
-        </button>
+        <h2 className="title">Supreme Court Roulette!</h2>
+          <hr width="60%" align="left" />
+          <div className="slug">
+            <p> It's the year, {this.state.date}, the president is {this.state.presidency}&nbsp;
+            and the legislative branch is {this.state.congress}. {this.state.removed[this.state.removed.length - 1].name} has left the bench.
+            { this.state.replacements.length > 0 ? `The president's latest appointment to the bench is ${this.state.replacements[this.state.replacements.length - 1].name}` : null}.&nbsp;
+            This makes for {redCount} republicans and {blueCount} democrats. {message}</p>
+            <div className="cta">
+            <p>Bang the gavel to see what happens next year.
+            </p>
+            <p>&nbsp;</p>
+            <button onClick={(event) => this.takeStep(currentJustices, date + 1)} className="button">
+              {paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
+              {!paused && <img src={gavel} alt="gavel" className={this.returnClassNames(paused)} /> }
+            </button></div>
+          </div>
           <div className="judge-container">
             {this.state.replacements.map(judge => {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
-                    <p>New!!!!</p>
-                    <p>{judge.name}</p>
-                    <p></p>
+                    <img src={New} alt="New" className="New" height="100"/>
+                    <p align="center"><em>{judge.name}</em></p>
                 </div>
               )
             })}
@@ -208,7 +221,7 @@ class App extends Component {
               return (
                 <div className="judge" key={judge.id+'a'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
-                    <p>{judge.name}</p>
+                    <p align="center"><em>{judge.name}</em></p>
                 </div>
             )
             })}
@@ -217,7 +230,7 @@ class App extends Component {
                 <div className="judge" key={judge.id+'d'}>
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                   <img src={RedX} alt="redx" height="200" className="RedX" />
-                    <p>{judge.name}</p>
+                    <p align="center"><em>{judge.name}</em></p>
                 </div>
             )
             })}
