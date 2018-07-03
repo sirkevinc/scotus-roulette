@@ -16,6 +16,6 @@ Each click of the gavel simulates a full year and along with it, the events that
 
 Clicking on each judge's name also brings up some great information about them.
 
-## Build With
+## Built With
 - React
 - Love & Care
