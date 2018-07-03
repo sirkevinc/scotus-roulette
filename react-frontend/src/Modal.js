@@ -6,7 +6,6 @@ import Judges from './data/judgeData';
 class InfoModal extends React.Component {
   state = {
     show: false,
-
   }
   constructor(props, context) {
     super(props, context);
@@ -23,19 +22,26 @@ class InfoModal extends React.Component {
     this.setState({ show: true });
   }
 
+  
   render() {
-    console.log(Judges[this.props.category])
+    const style = {
+      "border": "none",
+      "background": "none",
+      "outline": "none",
+      "width": "100%",
+      "textAlign": "center",
+      "margin": "5% 0"
+    }
     return (
       <div>
-        <button onClick={this.handleShow}></button>
-
+        <button onClick={this.handleShow} style={style}>{this.props.judge}</button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{this.props.judge}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>
-              
+              YOYOYOYO
             </p>
           </Modal.Body>
           <Modal.Footer>
