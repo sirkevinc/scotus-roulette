@@ -2,8 +2,8 @@
   --cycle: 1000ms;
   --iterations: 1;
   --timing: linear;
-  --start: rotate(-75deg);
-  --middle: rotate(-75deg);
+  --start: rotate(-70deg);
+  --middle: rotate(-50deg);
   --stop: rotate(40deg);
 }
 
@@ -14,7 +14,7 @@
 
 .spinning {
   transform-origin: (30,40);
-  transform: rotate(-70deg);
+  transform: var(--start);
   width: 100%;
   -webkit-animation-name: spin;
   -webkit-animation-duration: var(--cycle);

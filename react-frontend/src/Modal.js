@@ -56,10 +56,10 @@ class InfoModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <p>
-              {infoLoaded && `Born in: ${info.dob_city}, ${info.dob_state}`}
+              {infoLoaded && info.dob_city && `Born in: ${info.dob_city}, ${info.dob_state}`}
             </p>
             <p>
-              {infoLoaded && `Education: ${info.educations.map(elem => elem.school.name.concat(' (', elem.degree_detail,')')).join(', ')}`}
+              {infoLoaded && info.educations.length && `Education: ${info.educations.map(elem => elem.school.name.concat(' (', elem.degree_detail,')')).join(', ')}`}
             </p>
           </Modal.Body>
           <Modal.Footer>
