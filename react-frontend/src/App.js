@@ -43,6 +43,7 @@ class App extends Component {
         return judge;
       }
       removed.push(judge);
+      return false
     })
 
     this.setState({removed: removed});
@@ -125,7 +126,7 @@ class App extends Component {
     const replacements = [...this.state.replacements];
     if ((newCongress || this.state.congress) === (newPresidency || this.state.presidency)) {
       this.appointJustice(justices.length, replacements, newCongress || this.state.congress);
-    } else {
+    } else if (replacements.length + justices.length < 9) {
       this.state.trombone.play();
       setTimeout(() => alert("You just got Merrick Garland'd! \n The government is split and deadlocked over the supreme court nominee"), 1000);
     }
@@ -172,18 +173,17 @@ class App extends Component {
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`}/>
                     <img src={New} alt="New" className="New" height="100"/>
                     {/* <p align="center"><em>{judge.name}</em></p> */}
-                    <InfoModal judge={judge.name} />
+                    <InfoModal judge={judge.name} id={judge.id} />
 
                 </div>
               )
             })}
             {this.state.judges.map(judge => {
               return (
-              <div className="judge" key={judge.id+'a'}>
-                {/* {this.state.modalToggle ? <InfoModal judge={judge.name}/> : null} */}
-                  <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} onClick={this.test(judge)} />
+                <div className="judge" key={judge.id+'a'}>
+                  <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
+                    <InfoModal judge={judge.name} id={judge.id} />
                     {/* <p align="center"><em>{judge.name}</em></p> */}
-                    <InfoModal judge={judge.name} />
                 </div>
             )
             })}
@@ -193,7 +193,7 @@ class App extends Component {
                   <img src={judge.picture} height="200" alt={judge.name} className={`judge-pic__${judge.party}`} />
                   <img src={RedX} alt="redx" height="200" className="RedX" />
                     {/* <p align="center"><em>{judge.name}</em></p> */}
-                    <InfoModal judge={judge.name} />
+                    <InfoModal judge={judge.name} id={judge.id} />
                 </div>
             )
             })}
