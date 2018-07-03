@@ -25,16 +25,6 @@ class MerrickModal extends React.Component {
 
   
   render() {
-    const info = this.state.info;
-    const infoLoaded = this.state.infoLoaded
-    const style = {
-      "border": "none",
-      "background": "none",
-      "outline": "none",
-      "width": "100%",
-      "textAlign": "center",
-      "margin": "5% 0"
-    }
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
